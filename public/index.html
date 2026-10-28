@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>AllContent — Full Access</title>
+
+    <meta name="title" content="AllContent — Full Access" />
+    <meta name="description" content="AllContent Full Access — Creator Collections" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AllContent" />
+    <meta property="og:title" content="AllContent — Full Access" />
+    <meta property="og:description" content="AllContent Full Access — Creator Collections" />
+    <meta property="og:image" content="preview.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AllContent — Full Access" />
+    <meta name="twitter:description" content="AllContent Full Access — Creator Collections" />
+    <meta name="twitter:image" content="preview.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-wrapper min-h-screen" id="app">
+      <!-- Header is injected by JS when access is allowed -->
+    </div>
+
+    <!-- Age verification modal -->
+    <div class="age-dialog-overlay" id="age-modal" hidden>
+      <div class="age-dialog" role="dialog" aria-modal="true" aria-labelledby="age-title">
+        <div class="age-symbol" aria-hidden="true">18+</div>
+        <p class="eyebrow">Age verification</p>
+        <h2 id="age-title">Are you 18 or older?</h2>
+        <p class="age-notice">
+          This website contains adult content. You must be at least 18 years old to continue.
+        </p>
+        <div class="dialog-actions">
+          <button type="button" class="button button-primary" id="age-confirm">
+            Yes, I am 18+
+          </button>
+          <button type="button" class="button button-outline" id="age-decline">
+            No, exit
+          </button>
+        </div>
+        <p class="age-footnote">By entering you confirm you are of legal age in your jurisdiction.</p>
+      </div>
+    </div>
+
+    <!-- Video preview modal -->
+    <div class="video-modal-overlay" id="preview-modal" hidden>
+      <div class="video-modal-box" role="dialog" aria-modal="true">
+        <div class="video-modal-header">
+          <h3 id="preview-title">Preview</h3>
+          <button type="button" class="close-btn" id="preview-close" aria-label="Close">×</button>
+        </div>
+        <div class="video-player-container">
+          <video id="preview-video" controls playsinline></video>
+        </div>
+        <div class="video-modal-body">
+          <div class="video-modal-meta">
+            <span class="meta-tag" id="preview-category"></span>
+            <span id="preview-duration"></span>
+            <span id="preview-views"></span>
+          </div>
+          <p class="video-modal-desc" id="preview-desc"></p>
+          <div class="video-modal-actions">
+            <button type="button" class="button button-primary" id="preview-pay">Pay now</button>
+            <a class="button button-outline" id="preview-telegram" href="#" target="_blank" rel="noopener noreferrer">
+              <span class="telegram-icon" aria-hidden="true">➤</span> Telegram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post-payment modal -->
+    <div class="checkout-modal-overlay" id="checkout-modal" hidden>
+      <div class="checkout-modal-box" role="dialog" aria-modal="true">
+        <div class="video-modal-header">
+          <h3 style="font-family: Manrope, sans-serif; font-size: 22px; margin: 0;">Finalize & Receive Your Videos</h3>
+          <button type="button" class="close-btn" id="checkout-close" aria-label="Close">✕</button>
+        </div>
+        <div class="checkout-summary-card">
+          <div>
+            <div style="font-weight: 800; font-size: 16px; margin-bottom: 4px;" id="checkout-item-title">—</div>
+            <div style="color: var(--muted); font-size: 12px;">Instant digital release on confirmation</div>
+          </div>
+          <div class="checkout-price" id="checkout-item-price">—</div>
+        </div>
+        <div class="telegram-instructions-box">
+          <p style="margin: 0 0 8px 0; font-weight: 800;">💬 Send proof to get your video links:</p>
+          <ol style="margin: 0; padding-left: 18px;">
+            <li>Complete your payment in the TryWalled checkout page.</li>
+            <li>After completing payment, click the green button below.</li>
+            <li>Send your payment receipt/proof directly on Telegram.</li>
+            <li>Our team will release your video links immediately!</li>
+          </ol>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
+          <a class="button button-success" id="checkout-telegram-link" href="#" target="_blank" rel="noopener noreferrer" style="min-height: 52px; font-size: 15px; text-decoration: none;">
+            <span class="telegram-icon" aria-hidden="true">➤</span> Send Receipt on Telegram
+          </a>
+          <button class="button button-outline" type="button" id="checkout-reopen">Reopen Payment Link</button>
+          <button class="button" type="button" id="checkout-close-btn" style="background: transparent; color: var(--muted); border: none; padding: 6px;">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
