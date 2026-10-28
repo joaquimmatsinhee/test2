@@ -1,18 +1,7 @@
 {
-  "name": "allcontent-node",
-  "version": "1.0.0",
+  "name": "allcontent",
   "private": true,
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
-  },
-  "engines": {
-    "node": ">=18"
-  },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.1",
-    "express": "^4.21.2",
-    "cors": "^2.8.5"
+    "@neondatabase/serverless": "^1.0.1"
   }
 }

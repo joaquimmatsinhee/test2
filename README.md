@@ -1,46 +1,54 @@
-# AllContent (Node.js + Neon)
+# AllContent — Git → Cloudflare Pages
 
-Site + API no **mesmo servidor**. O celular chama `/api/videos` no seu domínio;
-o Node consulta o Neon. Não depende de CDN nem de CORS no browser.
+## Por que via Git?
 
-## Rodar local
+O **upload manual** do Cloudflare **não** aceita Pages Functions.
+Com **repositório Git** conectado, as Functions em `/functions` funcionam
+e o celular consegue carregar os vídeos do Neon.
 
-```bash
-cd allcontent-node
-npm install
-npm start
-# abra http://localhost:3000
-```
+## Passo a passo
 
-## Deploy no Render (recomendado, grátis)
-
-1. Crie conta em https://render.com
-2. **New → Web Service**
-3. Conecte o GitHub **ou** faça upload do código
-4. Configuração:
-   - **Runtime:** Node
-   - **Build command:** `npm install`
-   - **Start command:** `npm start`
-5. Environment variables (opcional):
-   - `DATABASE_URL` = connection string do Neon
-6. Deploy → use a URL `https://seu-app.onrender.com` no celular
-
-## Deploy no Railway
-
-1. https://railway.app → New Project → Deploy from folder/GitHub
-2. Add variable `DATABASE_URL` se quiser
-3. Railway detecta Node e sobe com `npm start`
-
-## Deploy no VPS / qualquer host Node
+### 1. Subir no GitHub
 
 ```bash
-npm install --production
-PORT=3000 npm start
-# ou use pm2: pm2 start server.js --name allcontent
+cd allcontent-cf-git
+git init
+git add .
+git commit -m "AllContent loja + API Neon"
+# crie um repo vazio no GitHub, depois:
+git branch -M main
+git remote add origin https://github.com/SEU_USER/allcontent.git
+git push -u origin main
 ```
 
-## Endpoints
+### 2. Cloudflare Pages
 
-- `GET /api/videos` — vídeos publicados
-- `GET /api/settings` — Telegram etc.
-- `GET /api/health` — status
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages**
+2. **Create** → **Pages** → **Connect to Git**
+3. Escolha o repositório `allcontent`
+4. Build settings:
+   - **Framework preset:** None
+   - **Build command:** (deixe vazio) ou `npm install`
+   - **Build output directory:** `/` (raiz)
+5. **Environment variables** (Settings do projeto):
+   - `NEON_DATABASE_URL` = sua connection string do Neon
+6. **Save and Deploy**
+
+### 3. Testar no celular
+
+Depois do deploy:
+
+- `https://seu-projeto.pages.dev/api/videos` → JSON com vídeos
+- `https://seu-projeto.pages.dev/` → loja
+
+Se `/api/videos` funcionar, a loja no celular também funciona.
+
+## Estrutura
+
+```
+/
+  index.html, app.js, styles.css, assets/
+  functions/api/videos.js    → GET /api/videos
+  functions/api/settings.js  → GET /api/settings
+  package.json               → @neondatabase/serverless
+```
